@@ -1,0 +1,13 @@
+$socialIconSize: 60px;
+$socialIconColor: gray;
+.social-media-icons {
+    gap: 15px;
+    background: red;
+}
+.social-media-icons a {
+    width: 40px;
+    svg {
+        font-size: $socialIconSize;
+        color: $socialIconColor;
+    }
+}
