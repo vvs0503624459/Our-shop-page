@@ -1,7 +1,19 @@
 .flex {
     display: flex;
-}
-.flex-between {
-    display: flex;
+    gap: 50px;
     justify-content: space-between;
+}
+.main {
+    text-align: center;
+}
+.product-description {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.product-price {
+    font-size: 22px;
+    margin-bottom: 10px;
+    span {
+        font-weight: bold;
+    }
 }

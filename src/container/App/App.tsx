@@ -21,45 +21,59 @@ const App = (props: Props) => {
     const [currentCurrency, setCurrentCurrency] = useState<CurrencyType>({
         EUR: 1,
     })
+    const [buy, setBuy] = useState<CurrencyType>({})
     const changecurrentCurrency = (id: string, index: number) =>
         setCurrentCurrency(() => ({
             [id]: index,
         }))
-    // let currencyItem = Object.keys(currency).filter(function (string) {
-    //     return string === key
-    // })
+    const productInCart = (id: string, productPrice: number) => {
+        setBuy((prevState) => ({
+            ...prevState,
+            [id]: (prevState[id] || 0) + productPrice,
+        }))
+    }
     let currencyItem = Object.keys(currentCurrency)
     let currencyValue = +Object.values(currentCurrency)
-    // let currencyValue = currency.currencyItem
-
+    // console.log(buy)
     return (
         <>
-            <Container>
-                <Typography variant="h4" sx={{ margin: '30px 0' }}>
+            <Container className="main">
+                <Typography
+                    variant="h3"
+                    sx={{ margin: '30px 0', fontWeight: 'bold' }}
+                >
                     Our shop page
                 </Typography>
                 <div>
                     <Button
                         variant="outlined"
-                        onClick={() => changecurrentCurrency('USD', 1.1)}
+                        onClick={() =>
+                            changecurrentCurrency('USD', currency['USD'])
+                        }
                     >
                         USD
                     </Button>
                     <Button
                         variant="outlined"
-                        onClick={() => changecurrentCurrency('EUR', 1)}
+                        onClick={() =>
+                            changecurrentCurrency('EUR', currency['EUR'])
+                        }
                     >
                         EUR
                     </Button>
                     <Button
                         variant="outlined"
-                        onClick={() => changecurrentCurrency('UAH', 36)}
+                        onClick={() =>
+                            changecurrentCurrency('UAH', currency['UAH'])
+                        }
                     >
                         UAH
                     </Button>
                     <Button
                         variant="outlined"
-                        onClick={() => changecurrentCurrency('PLN', 4)}
+                        onClick={() =>
+                            changecurrentCurrency('PLN', currency['PLN'])
+                        }
                     >
                         PLN
                     </Button>
@@ -69,22 +83,34 @@ const App = (props: Props) => {
                         <Typography
                             variant="h4"
                             component={'h2'}
-                            sx={{ margin: '30px 0' }}
+                            sx={{ margin: '30px 0', fontWeight: 'bold' }}
                         >
                             iPhone 12
                         </Typography>
-                        <p className="product-description">This is iPhone</p>
+                        <p className="product-description">
+                            This is iPhone 12 ...
+                        </p>
                         <div className="product-price">
-                            Price: {currencyItem}
-                            <span>{price['iPhone 12'] * currencyValue}</span>
+                            Price: {currencyItem}{' '}
+                            <span>
+                                {' '}
+                                {Math.round(price['iPhone 12'] * currencyValue)}
+                            </span>
                         </div>
-                        <Button variant="outlined">Buy</Button>
+                        <Button
+                            variant="outlined"
+                            onClick={() =>
+                                productInCart('iPhone 12', price['iPhone 12'])
+                            }
+                        >
+                            Buy
+                        </Button>
                     </div>
                     <div>
                         <Typography
                             variant="h4"
                             component={'h2'}
-                            sx={{ margin: '30px 0' }}
+                            sx={{ margin: '30px 0', fontWeight: 'bold' }}
                         >
                             iPhone 8{' '}
                         </Typography>
@@ -92,28 +118,57 @@ const App = (props: Props) => {
                             This is iPhone 8 ...
                         </p>
                         <div className="product-price">
-                            Price:{currencyItem}
-                            <span>{price['iPhone 8'] * currencyValue}</span>
+                            Price: {currencyItem}{' '}
+                            <span>
+                                {Math.round(price['iPhone 8'] * currencyValue)}
+                            </span>
                         </div>
-                        <Button variant="outlined">Buy</Button>
+                        <Button
+                            variant="outlined"
+                            onClick={() =>
+                                productInCart('iPhone 8', price['iPhone 8'])
+                            }
+                        >
+                            Buy
+                        </Button>
                     </div>
                     <div>
                         <Typography
                             variant="h4"
                             component={'h2'}
-                            sx={{ margin: '30px 0' }}
+                            sx={{ margin: '30px 0', fontWeight: 'bold' }}
                         >
                             iPhone X
                         </Typography>
-                        <p className="product-description">This is iPhone X</p>
+                        <p className="product-description">
+                            This is iPhone X...
+                        </p>
                         <div className="product-price">
-                            Price:{currencyItem}
-                            <span>{price['iPhone X'] * currencyValue}</span>
+                            Price: {currencyItem}{' '}
+                            <span>
+                                {Math.round(price['iPhone X'] * currencyValue)}
+                            </span>
                         </div>
-                        <Button variant="outlined">Buy</Button>
+                        <Button
+                            variant="outlined"
+                            onClick={() =>
+                                productInCart('iPhone X', price['iPhone X'])
+                            }
+                        >
+                            Buy
+                        </Button>
                     </div>
                 </Grid>
-                <p className="total">total : {0}</p>
+                <p className="product-price">
+                    total :
+                    <span>
+                        {Object.values(buy).reduce(
+                            (total, current) => total + current,
+                            0
+                        ) * currencyValue}{' '}
+                    </span>
+                    {currencyItem}
+                </p>
             </Container>
         </>
     )
