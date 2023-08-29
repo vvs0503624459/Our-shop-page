@@ -162,10 +162,12 @@ const App = (props: Props) => {
                 <p className="product-price">
                     total :
                     <span>
-                        {Object.values(buy).reduce(
-                            (total, current) => total + current,
-                            0
-                        ) * currencyValue}{' '}
+                        {Math.round(
+                            Object.values(buy).reduce(
+                                (total, current) => total + current,
+                                0
+                            ) * currencyValue
+                        )}{' '}
                     </span>
                     {currencyItem}
                 </p>
